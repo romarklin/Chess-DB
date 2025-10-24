@@ -1,6 +1,23 @@
-﻿namespace Chess_DB.ViewModels;
+﻿using System.Collections.ObjectModel;
+using Chess_DB.Models;
+using Chess_DB.Services;
 
-public partial class MainWindowViewModel : ViewModelBase
+namespace Chess_DB.ViewModels
+
 {
-    public string Greeting { get; } = "Welcome to Avalonia!";
+    public class MainWindowViewModel : ViewModelBase
+    {
+        private readonly JoueurService _joueurService;
+
+        public ObservableCollection<Joueur> Joueurs => _joueurService.Joueurs;
+
+        public MainWindowViewModel()
+        { 
+            _joueurService = new JoueurService();
+
+            // Exemple de données temporaires
+            _joueurService.Ajouter(new Joueur { Nom = "Dupont", Prenom = "Luc", ClassementElo = 1500 });
+            _joueurService.Ajouter(new Joueur { Nom = "Martin", Prenom = "Alice", ClassementElo = 1350 });
+        }
+    }
 }
