@@ -1,19 +1,61 @@
 <Window xmlns="https://github.com/avaloniaui"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:d="https://github.com/avaloniaui"
-    xmlns:dg="clr-namespace:Avalonia.Controls;assembly=Avalonia.Controls.DataGrid"
-    xmlns:vm="using:Chess_DB.ViewModels"
-    x:Class="Chess_DB.Views.MainWindow"
-    x:DataType="vm:MainWindowViewModel"
-    Title="Gestion des Joueurs" Width="400" Height="300">
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:Chess_DB.ViewModels"
+        xmlns:models="using:Chess_DB.Models"
+        x:Class="Chess_DB.Views.MainWindow"
+        x:DataType="vm:MainWindowViewModel"
+        Title="Gestion des Joueurs" Width="400" Height="300">
 
-    <Window.DataContext>
-        <vm:MainWindowViewModel/>
-    </Window.DataContext>
+    <Grid RowDefinitions="Auto, Auto, *">
 
-    <StackPanel Margin="10">
-        <TextBlock Text="Liste des joueurs" FontWeight="Bold" FontSize="16"/>
-    <dg:DataGrid ItemsSource="{Binding Joueurs}" AutoGenerateColumns="True" Margin="0,10,0,0"/>
-    </StackPanel>
+        <Grid Grid.Row="0" Background="red" Height="60">
+            <Label FontSize="24" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center">Chess DB</Label> 
+        </Grid>
+
+        <Grid Grid.Row="1" Background="yellow" Height="60" ColumnDefinitions="*,*">
+            <Grid Grid.Column="0">
+                <Label FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center">Joueurs</Label>
+            </Grid>
+            <Grid Grid.Column="1">
+                <Label FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center">Compétitions</Label>
+            </Grid>
+        </Grid>
+
+        <Grid Grid.Row="2" Background="black">
+            <!-- Fenêtre gestion des joueurs -->
+            <StackPanel Margin="10">
+
+                <!-- Titre -->
+                <TextBlock Text="Liste des joueurs" FontWeight="Bold" FontSize="16" Margin="0,0,0,10"/>
+
+                <!-- Boutons Trier -->
+                <StackPanel Orientation="Horizontal" Spacing="10" Margin="0,0,0,10">
+                    <Button Content="Trier par Elo ↑" Command="{Binding TrierParEloCommand}" />
+                    <Button Content="Trier par Elo ↓" Command="{Binding TrierParEloDescCommand}" />
+                </StackPanel>
+
+                <!--Liste de joueurs -->
+                <ListBox ItemsSource="{Binding Joueurs}"
+                        SelectedItem="{Binding SelectedJoueur, Mode=TwoWay}">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal" Spacing="10">
+                                <TextBlock Text="{Binding Nom}" />
+                                <TextBlock Text="{Binding Prenom}" />
+                                <TextBlock Text="{Binding ClassementElo}" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+
+                <!-- Boutons Ajouter/Supprimer -->
+                <StackPanel Orientation="Horizontal" Spacing="10">
+                    <Button Content="Ajouter" Command="{Binding AjouterJoueurCommand}"/>
+                    <Button Content="Supprimer" Command="{Binding SupprimerJoueurCommand}"/>
+                </StackPanel>
+
+            </StackPanel>
+        </Grid>
+    </Grid>
 </Window>
 
