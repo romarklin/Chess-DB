@@ -32,11 +32,6 @@ public partial class MainWindowViewModel : ObservableObject
     {
         // Initialisation du service
         _joueurService = new JoueurService();
-
-        // Ajout de quelques joueurs de test
-        _joueurService.Ajouter(new Joueur(1, "Ivan", "Ivanovitch", "magnus@chess.com", 2864));
-        _joueurService.Ajouter(new Joueur(2, "Naruto", "Uzumaki", "ian@chess.com", 2780));
-        _joueurService.Ajouter(new Joueur(3, "Wise", "Worm", "ali@chess.com", 2750));
     }
 
     [RelayCommand]

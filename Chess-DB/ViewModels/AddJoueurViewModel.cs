@@ -27,7 +27,7 @@ public partial class AddJoueurViewModel : ObservableObject
         if (string.IsNullOrWhiteSpace(Nom) || string.IsNullOrWhiteSpace(Prenom))
             return;
 
-        CreatedJoueur = new Joueur(0, Nom, Prenom, "");
+        CreatedJoueur = new Joueur(0, Nom, Prenom);
         CloseRequested?.Invoke();
     }
 }
