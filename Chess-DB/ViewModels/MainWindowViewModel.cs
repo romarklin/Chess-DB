@@ -1,10 +1,14 @@
 ﻿using System.Collections.ObjectModel;
 using System.Linq;
-using System.Windows.Input;
 using Chess_DB.Models;
+using Chess_DB.Views;
 using Chess_DB.Services;
 using CommunityToolkit.Mvvm.ComponentModel;
+using Avalonia.Controls.ApplicationLifetimes;
 using CommunityToolkit.Mvvm.Input;
+using Avalonia;
+using System.Threading.Tasks;
+
 
 namespace Chess_DB.ViewModels;
 
@@ -54,12 +58,26 @@ public partial class MainWindowViewModel : ObservableObject
     }
 
     [RelayCommand]
-    private void AjouterJoueur()
+    private async Task AjouterJoueur()
     {
-        var nouveau = new Joueur { Nom = "Nouveau", Prenom = "Joueur" };
-        _joueurService.Ajouter(nouveau);
-        SelectedJoueur = nouveau; // sélectionne le joueur ajouté
+        var addWindow = new AddJoueurWindow();
+        var vm = new AddJoueurViewModel();
+        addWindow.DataContext = vm;
+
+        var desktop = Application.Current!.ApplicationLifetime as IClassicDesktopStyleApplicationLifetime;
+
+        if (desktop?.MainWindow is null)
+            return; // sécurité
+
+        var result = await addWindow.ShowDialog<Joueur?>(desktop.MainWindow);
+
+
+        if (result != null)
+        {
+            _joueurService.Ajouter(result);
+        }
     }
+
 
     [RelayCommand(CanExecute = nameof(CanSupprimer))]
     private void SupprimerJoueur()

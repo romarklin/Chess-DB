@@ -1,0 +1,24 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:Chess_DB.ViewModels"
+        x:Class="Chess_DB.Views.AddJoueurWindow"
+        x:DataType="vm:AddJoueurViewModel"
+        Width="320" Height="200"
+        WindowStartupLocation="CenterOwner"
+        Title="Ajouter un joueur">
+
+    <StackPanel Margin="15" Spacing="10">
+
+        <TextBlock Text="Nom:"/>
+        <TextBox Text="{Binding Nom}" />
+
+        <TextBlock Text="Prénom:"/>
+        <TextBox Text="{Binding Prenom}" />
+
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Spacing="10">
+            <Button Content="Annuler" Command="{Binding AnnulerCommand}" />
+            <Button Content="Confirmer" Command="{Binding ConfirmerCommand}" />
+        </StackPanel>
+
+    </StackPanel>
+</Window>
