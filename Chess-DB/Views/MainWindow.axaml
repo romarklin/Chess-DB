@@ -4,29 +4,49 @@
         xmlns:models="using:Chess_DB.Models"
         x:Class="Chess_DB.Views.MainWindow"
         x:DataType="vm:MainWindowViewModel"
-        Title="Gestion des Joueurs" Width="400" Height="300">
+        Title="Gestion des Joueurs" Width="500" Height="400">
+
+    <Window.Styles>
+        <!-- Style de base -->
+        <Style Selector="Button">
+            <Setter Property="Background" Value="#e6e6e6"/>
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="CornerRadius" Value="5"/>
+            <Setter Property="Padding" Value="10,5"/>
+        </Style>
+
+        <!-- Hover -->
+        <Style Selector="Button:pointerover /template/ ContentPresenter">
+            <Setter Property="Background" Value="#b3b3b3"/>
+            <Setter Property="Foreground" Value="White"/>
+        </Style>
+    </Window.Styles>
+
 
     <Grid RowDefinitions="Auto, Auto, *">
 
-        <Grid Grid.Row="0" Background="red" Height="60">
-            <Label FontSize="24" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center">Chess DB</Label> 
+        <Grid Grid.Row="0" Background="#4285f4" Height="60">
+            <Label FontSize="24" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center">Google Chess</Label> 
         </Grid>
 
-        <Grid Grid.Row="1" Background="yellow" Height="60" ColumnDefinitions="*,*">
-            <Grid Grid.Column="0">
+        <Grid Grid.Row="1" Height="40" ColumnDefinitions="*,*,*">
+            <Grid Grid.Column="0" Background="#ea4335">
                 <Label FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center">Joueurs</Label>
             </Grid>
-            <Grid Grid.Column="1">
+            <Grid Grid.Column="1" Background="#fbbc04">
+                <Label FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center">Inscription</Label>
+            </Grid>
+            <Grid Grid.Column="2" Background="#34a853">
                 <Label FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center">Compétitions</Label>
             </Grid>
         </Grid>
 
-        <Grid Grid.Row="2" Background="black">
+        <Grid Grid.Row="2" Background="white">
             <!-- Fenêtre gestion des joueurs -->
             <StackPanel Margin="10">
 
                 <!-- Titre -->
-                <TextBlock Text="Liste des joueurs" FontWeight="Bold" FontSize="16" Margin="0,0,0,10"/>
+                <TextBlock Text="Liste des joueurs" Foreground="black" FontWeight="Bold" FontSize="16" Margin="0,0,0,10"/>
 
                 <!-- Boutons Trier -->
                 <StackPanel Orientation="Horizontal" Spacing="10" Margin="0,0,0,10">
@@ -34,16 +54,27 @@
                     <Button Content="Trier par Elo ↓" Command="{Binding TrierParEloDescCommand}" />
                 </StackPanel>
 
+                <!-- En-têtes -->
+                <Border Background="#b3b3b3" CornerRadius="10,10,0,0">
+                    <Grid ColumnDefinitions="*,*,*">
+                        <TextBlock Text="Nom" Padding="7" FontWeight="Bold" Grid.Column="0" HorizontalAlignment="Center"/>
+                        <TextBlock Text="Prénom" Padding="7" FontWeight="Bold" Grid.Column="1" HorizontalAlignment="Center"/>
+                        <TextBlock Text="ELO" Padding="7" FontWeight="Bold" Grid.Column="2" HorizontalAlignment="Center"/>
+                    </Grid>
+                </Border>
+
                 <!--Liste de joueurs -->
                 <ListBox ItemsSource="{Binding Joueurs}"
-                        SelectedItem="{Binding SelectedJoueur, Mode=TwoWay}">
+                        SelectedItem="{Binding SelectedJoueur, Mode=TwoWay}"
+                        Margin="0,0,0,5"
+                        >
                     <ListBox.ItemTemplate>
                         <DataTemplate>
-                            <StackPanel Orientation="Horizontal" Spacing="10">
-                                <TextBlock Text="{Binding Nom}" />
-                                <TextBlock Text="{Binding Prenom}" />
-                                <TextBlock Text="{Binding ClassementElo}" />
-                            </StackPanel>
+                            <Grid ColumnDefinitions="*,*,*">
+                                <TextBlock Text="{Binding Nom}" Grid.Column="0" HorizontalAlignment="Center"/>
+                                <TextBlock Text="{Binding Prenom}" Grid.Column="1" HorizontalAlignment="Center"/>
+                                <TextBlock Text="{Binding ClassementElo}" Grid.Column="2" HorizontalAlignment="Center"/>
+                            </Grid>
                         </DataTemplate>
                     </ListBox.ItemTemplate>
                 </ListBox>
