@@ -1,0 +1,58 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+                xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                mc:Ignorable="d"
+                x:Class="Chess_DB.Views.PagePrincipaleView"
+                x:DataType="vm:PagePrincipaleViewModel"
+                xmlns:vm="using:Chess_DB.ViewModels">
+
+    <Grid Background="white">
+
+        <!-- Fenêtre gestion des joueurs -->
+        <StackPanel Margin="10">
+
+            <!-- Titre -->
+            <TextBlock Text="Liste des joueurs" Foreground="black" FontWeight="Bold" FontSize="16" Margin="0,0,0,10"/>
+
+            <!-- Boutons Trier -->
+            <StackPanel Orientation="Horizontal" Spacing="10" Margin="0,0,0,10">
+                <Button Content="Trier par Elo ↑" Command="{Binding TrierParEloCommand}" />
+                <Button Content="Trier par Elo ↓" Command="{Binding TrierParEloDescCommand}" />
+            </StackPanel>
+
+            <!-- En-têtes -->
+            <Border Background="#b3b3b3" CornerRadius="10,10,0,0">
+                <Grid ColumnDefinitions="*,*,*">
+                    <TextBlock Text="Nom" Padding="7" FontWeight="Bold" Grid.Column="0" HorizontalAlignment="Center"/>
+                    <TextBlock Text="Prénom" Padding="7" FontWeight="Bold" Grid.Column="1" HorizontalAlignment="Center"/>
+                    <TextBlock Text="ELO" Padding="7" FontWeight="Bold" Grid.Column="2" HorizontalAlignment="Center"/>
+                </Grid>
+            </Border>
+
+            <!--Liste de joueurs -->
+            <ListBox ItemsSource="{Binding Joueurs}"
+                    SelectedItem="{Binding SelectedJoueur, Mode=TwoWay}"
+                    Margin="0,0,0,5"
+                    >
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Grid ColumnDefinitions="*,*,*">
+                            <TextBlock Text="{Binding Nom}" Grid.Column="0" HorizontalAlignment="Center"/>
+                            <TextBlock Text="{Binding Prenom}" Grid.Column="1" HorizontalAlignment="Center"/>
+                            <TextBlock Text="{Binding ClassementElo}" Grid.Column="2" HorizontalAlignment="Center"/>
+                        </Grid>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+
+            <!-- Boutons Ajouter/Supprimer -->
+            <StackPanel Orientation="Horizontal" Spacing="10">
+                <Button Content="Ajouter" Command="{Binding AjouterJoueurCommand}"/>
+                <Button Content="Supprimer" Command="{Binding SupprimerJoueurCommand}"/>
+            </StackPanel>
+
+        </StackPanel>
+        
+    </Grid>
+</UserControl>

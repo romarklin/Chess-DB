@@ -1,0 +1,37 @@
+<Style xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+
+    <!-- Style de base pour les boutons -->
+    <Style Selector="Button">
+        <Setter Property="Background" Value="#e6e6e6"/>
+        <Setter Property="Foreground" Value="Black"/>
+        <Setter Property="CornerRadius" Value="5"/>
+        <Setter Property="Padding" Value="10,5"/>
+    </Style>
+
+    <!-- Style pour le hover des boutons -->
+    <Style Selector="Button:pointerover /template/ ContentPresenter">
+        <Setter Property="Background" Value="#b3b3b3"/>
+        <Setter Property="Foreground" Value="White"/>
+    </Style>
+
+    <!-- Style du bouton sélectionné -->
+    <Style Selector="Button:selected">
+        <Setter Property="Background" Value="#9e9c9cff"/>
+        <Setter Property="Foreground" Value="White"/>
+    </Style>
+
+    <!-- Style pour les boutons de naviguation -->
+    <Style Selector="Button.naviguation">
+        <Setter Property="Background" Value="White"/>
+        <Setter Property="Foreground" Value="Black"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="Padding" Value="10,5"/>
+        <Setter Property="Width" Value="150"/>
+        <Setter Property="CornerRadius" Value="5"/>
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+    </Style>
+</Style>
+
+

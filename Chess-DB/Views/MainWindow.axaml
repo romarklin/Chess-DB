@@ -2,91 +2,34 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:vm="using:Chess_DB.ViewModels"
         xmlns:models="using:Chess_DB.Models"
+        xmlns:view="using:Chess_DB.Views"
         x:Class="Chess_DB.Views.MainWindow"
         x:DataType="vm:MainWindowViewModel"
         Title="Gestion des Joueurs" Width="500" Height="400">
 
-    <Window.Styles>
-        <!-- Style de base -->
-        <Style Selector="Button">
-            <Setter Property="Background" Value="#e6e6e6"/>
-            <Setter Property="Foreground" Value="Black"/>
-            <Setter Property="CornerRadius" Value="5"/>
-            <Setter Property="Padding" Value="10,5"/>
-        </Style>
-
-        <!-- Hover -->
-        <Style Selector="Button:pointerover /template/ ContentPresenter">
-            <Setter Property="Background" Value="#b3b3b3"/>
-            <Setter Property="Foreground" Value="White"/>
-        </Style>
-    </Window.Styles>
-
-
     <Grid RowDefinitions="Auto, Auto, *">
 
+        <!-- Contenu de la page -->
+        <ContentControl Grid.Row="2" Content="{Binding PageActuelle}" />
+
+        <!-- En-tête -->
         <Grid Grid.Row="0" Background="#4285f4" Height="60">
             <Label FontSize="24" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center">Google Chess</Label> 
         </Grid>
-
+            
+        <!-- Bar de navigation -->
         <Grid Grid.Row="1" Height="40" ColumnDefinitions="*,*,*">
             <Grid Grid.Column="0" Background="#ea4335">
-                <Label FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center">Joueurs</Label>
+                <Button Classes="naviguation" Command="{Binding AllerAlaPagePrincipaleCommand}" HorizontalAlignment="Center">Joueurs</Button>
             </Grid>
             <Grid Grid.Column="1" Background="#fbbc04">
-                <Label FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center">Inscription</Label>
+                <Button Classes="naviguation" Command="{Binding AllerALaPageInscriptionsCommand}" HorizontalAlignment="Center">Inscription</Button>
             </Grid>
             <Grid Grid.Column="2" Background="#34a853">
-                <Label FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center">Compétitions</Label>
+                <Button Classes="naviguation" Command="{Binding AllerALaPageCompetitionsCommand}" HorizontalAlignment="Center">Compétitions</Button>
             </Grid>
         </Grid>
 
-        <Grid Grid.Row="2" Background="white">
-            <!-- Fenêtre gestion des joueurs -->
-            <StackPanel Margin="10">
-
-                <!-- Titre -->
-                <TextBlock Text="Liste des joueurs" Foreground="black" FontWeight="Bold" FontSize="16" Margin="0,0,0,10"/>
-
-                <!-- Boutons Trier -->
-                <StackPanel Orientation="Horizontal" Spacing="10" Margin="0,0,0,10">
-                    <Button Content="Trier par Elo ↑" Command="{Binding TrierParEloCommand}" />
-                    <Button Content="Trier par Elo ↓" Command="{Binding TrierParEloDescCommand}" />
-                </StackPanel>
-
-                <!-- En-têtes -->
-                <Border Background="#b3b3b3" CornerRadius="10,10,0,0">
-                    <Grid ColumnDefinitions="*,*,*">
-                        <TextBlock Text="Nom" Padding="7" FontWeight="Bold" Grid.Column="0" HorizontalAlignment="Center"/>
-                        <TextBlock Text="Prénom" Padding="7" FontWeight="Bold" Grid.Column="1" HorizontalAlignment="Center"/>
-                        <TextBlock Text="ELO" Padding="7" FontWeight="Bold" Grid.Column="2" HorizontalAlignment="Center"/>
-                    </Grid>
-                </Border>
-
-                <!--Liste de joueurs -->
-                <ListBox ItemsSource="{Binding Joueurs}"
-                        SelectedItem="{Binding SelectedJoueur, Mode=TwoWay}"
-                        Margin="0,0,0,5"
-                        >
-                    <ListBox.ItemTemplate>
-                        <DataTemplate>
-                            <Grid ColumnDefinitions="*,*,*">
-                                <TextBlock Text="{Binding Nom}" Grid.Column="0" HorizontalAlignment="Center"/>
-                                <TextBlock Text="{Binding Prenom}" Grid.Column="1" HorizontalAlignment="Center"/>
-                                <TextBlock Text="{Binding ClassementElo}" Grid.Column="2" HorizontalAlignment="Center"/>
-                            </Grid>
-                        </DataTemplate>
-                    </ListBox.ItemTemplate>
-                </ListBox>
-
-                <!-- Boutons Ajouter/Supprimer -->
-                <StackPanel Orientation="Horizontal" Spacing="10">
-                    <Button Content="Ajouter" Command="{Binding AjouterJoueurCommand}"/>
-                    <Button Content="Supprimer" Command="{Binding SupprimerJoueurCommand}"/>
-                </StackPanel>
-
-            </StackPanel>
-        </Grid>
     </Grid>
 </Window>
 

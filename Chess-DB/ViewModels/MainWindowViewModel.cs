@@ -1,88 +1,40 @@
-﻿using System.Collections.ObjectModel;
-using System.Linq;
-using Chess_DB.Models;
-using Chess_DB.Views;
-using Chess_DB.Services;
+﻿using Chess_DB.Models;
 using CommunityToolkit.Mvvm.ComponentModel;
-using Avalonia.Controls.ApplicationLifetimes;
 using CommunityToolkit.Mvvm.Input;
-using Avalonia;
-using System.Threading.Tasks;
-
 
 namespace Chess_DB.ViewModels;
 
 public partial class MainWindowViewModel : ObservableObject
 {
 
-    private readonly JoueurService _joueurService;
-
-    public ObservableCollection<Joueur> Joueurs => _joueurService.Joueurs;
-
     [ObservableProperty]
-    private Joueur? selectedJoueur;
+    private ViewModelBase _pageActuelle;
 
-    partial void OnSelectedJoueurChanged(Joueur? oldValue, Joueur? newValue)
-    {
-        // Force la réévaluation de CanExecute de la commande
-        SupprimerJoueurCommand.NotifyCanExecuteChanged();
-    }
+    private readonly PagePrincipaleViewModel _pagePrincipale = new();
+    private readonly InscriptionsViewModel _pageInscriptions = new();
+    private readonly CompetitionsViewModel _pageCompetitions = new();
 
     public MainWindowViewModel()
     {
         // Initialisation du service
-        _joueurService = new JoueurService();
+        _pageActuelle = _pagePrincipale;
     }
 
     [RelayCommand]
-    private void TrierParElo()
+    private void AllerAlaPagePrincipale()
     {
-        var sorted = Joueurs.OrderBy(j => j.ClassementElo).ToList();
-        Joueurs.Clear();
-        foreach (var j in sorted)
-            Joueurs.Add(j);
+        PageActuelle = _pagePrincipale;
     }
 
     [RelayCommand]
-    private void TrierParEloDesc()
+    private void AllerALaPageInscriptions()
     {
-        var sorted = Joueurs.OrderByDescending(j => j.ClassementElo).ToList();
-        Joueurs.Clear();
-        foreach (var j in sorted)
-            Joueurs.Add(j);
+        PageActuelle = _pageInscriptions;
     }
 
     [RelayCommand]
-    private async Task AjouterJoueur()
+    private void AllerALaPageCompetitions()
     {
-        var addWindow = new AddJoueurWindow();
-        var vm = new AddJoueurViewModel();
-        addWindow.DataContext = vm;
-
-        var desktop = Application.Current!.ApplicationLifetime as IClassicDesktopStyleApplicationLifetime;
-
-        if (desktop?.MainWindow is null)
-            return; // sécurité
-
-        var result = await addWindow.ShowDialog<Joueur?>(desktop.MainWindow);
-
-
-        if (result != null)
-        {
-            _joueurService.Ajouter(result);
-        }
+        PageActuelle = _pageCompetitions;
     }
-
-
-    [RelayCommand(CanExecute = nameof(CanSupprimer))]
-    private void SupprimerJoueur()
-    {
-        if (SelectedJoueur != null)
-        {
-            _joueurService.Supprimer(SelectedJoueur);
-            SelectedJoueur = null;
-        }
-    }
-
-    private bool CanSupprimer() => SelectedJoueur != null;
 }
