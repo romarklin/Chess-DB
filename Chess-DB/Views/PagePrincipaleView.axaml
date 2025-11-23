@@ -21,12 +21,13 @@
                 <Button Content="Trier par Elo ↓" Command="{Binding TrierParEloDescCommand}" />
             </StackPanel>
 
-            <!-- En-têtes -->
+            <!-- En-têtes liste -->
             <Border Background="#b3b3b3" CornerRadius="10,10,0,0">
-                <Grid ColumnDefinitions="*,*,*">
+                <Grid ColumnDefinitions="*,*,*,Auto">
                     <TextBlock Text="Nom" Padding="7" FontWeight="Bold" Grid.Column="0" HorizontalAlignment="Center"/>
                     <TextBlock Text="Prénom" Padding="7" FontWeight="Bold" Grid.Column="1" HorizontalAlignment="Center"/>
                     <TextBlock Text="ELO" Padding="7" FontWeight="Bold" Grid.Column="2" HorizontalAlignment="Center"/>
+                    <TextBlock Text="" Grid.Column="3" Padding="7"/>
                 </Grid>
             </Border>
 
@@ -34,13 +35,26 @@
             <ListBox ItemsSource="{Binding Joueurs}"
                     SelectedItem="{Binding SelectedJoueur, Mode=TwoWay}"
                     Margin="0,0,0,5"
+                    CornerRadius="0,0,10,10"
                     >
                 <ListBox.ItemTemplate>
                     <DataTemplate>
-                        <Grid ColumnDefinitions="*,*,*">
+                        <Grid ColumnDefinitions="*,*,*,Auto">
                             <TextBlock Text="{Binding Nom}" Grid.Column="0" HorizontalAlignment="Center"/>
                             <TextBlock Text="{Binding Prenom}" Grid.Column="1" HorizontalAlignment="Center"/>
                             <TextBlock Text="{Binding ClassementElo}" Grid.Column="2" HorizontalAlignment="Center"/>
+                            
+                            <Button Content="X" 
+                                    Grid.Column="3" 
+                                    Margin="5,0"
+                                    Padding="5,0" 
+                                    VerticalAlignment="Center"
+                                    Background="#ea4335" 
+                                    Foreground="White"
+                                    ToolTip.Tip="Supprimer le joueur"
+                                    
+                                    Command="{Binding $parent[UserControl].DataContext.SupprimerJoueurInlineCommand}"
+                                    CommandParameter="{Binding}"/>
                         </Grid>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
@@ -49,7 +63,6 @@
             <!-- Boutons Ajouter/Supprimer -->
             <StackPanel Orientation="Horizontal" Spacing="10">
                 <Button Content="Ajouter" Command="{Binding AjouterJoueurCommand}"/>
-                <Button Content="Supprimer" Command="{Binding SupprimerJoueurCommand}"/>
             </StackPanel>
 
         </StackPanel>

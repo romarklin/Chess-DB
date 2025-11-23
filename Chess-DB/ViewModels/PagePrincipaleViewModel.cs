@@ -20,16 +20,9 @@ public partial class PagePrincipaleViewModel : ViewModelBase
     [ObservableProperty]
     private Joueur? selectedJoueur;
 
-    partial void OnSelectedJoueurChanged(Joueur? oldValue, Joueur? newValue)
+    public PagePrincipaleViewModel(JoueurService joueurService)
     {
-        // Force la réévaluation de CanExecute de la commande
-        SupprimerJoueurCommand.NotifyCanExecuteChanged();
-    }
-
-    public PagePrincipaleViewModel()
-    {
-        // Initialisation du service
-        _joueurService = new JoueurService();
+        _joueurService = joueurService;
     }
 
     [RelayCommand]
@@ -71,16 +64,18 @@ public partial class PagePrincipaleViewModel : ViewModelBase
         }
     }
 
-
-    [RelayCommand(CanExecute = nameof(CanSupprimer))]
-    private void SupprimerJoueur()
+    [RelayCommand]
+    private void SupprimerJoueurInline(Joueur joueurASupprimer)
     {
-        if (SelectedJoueur != null)
+        if (joueurASupprimer != null)
         {
-            _joueurService.Supprimer(SelectedJoueur);
-            SelectedJoueur = null;
+            // Si le joueur supprimé est le joueur actuellement sélectionné, désélectionnez-le.
+            if (SelectedJoueur == joueurASupprimer)
+            {
+                SelectedJoueur = null;
+            }
+
+            _joueurService.Supprimer(joueurASupprimer); // Utilise le service pour la suppression
         }
     }
-
-    private bool CanSupprimer() => SelectedJoueur != null;
 }

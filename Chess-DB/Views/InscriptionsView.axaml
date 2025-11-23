@@ -3,7 +3,28 @@
                 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                 mc:Ignorable="d"
-                x:Class="Chess_DB.Views.InscriptionsView">
+                x:Class="Chess_DB.Views.InscriptionsView"
+                x:DataType="vm:InscriptionsViewModel"
+                xmlns:vm="using:Chess_DB.ViewModels">
 
-    Page d'Inscription!
+    <Grid Background="LightGray" ColumnDefinitions="*,*">
+
+        <Grid Grid.Column="0" Background="WhiteSmoke">
+            <ListBox ItemsSource="{Binding Joueurs}" Margin="20" CornerRadius="10">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal" Margin="5">
+                            <TextBlock Text="{Binding Nom}"/>
+                            <TextBlock Text="{Binding Prenom}"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </Grid>
+
+        <Grid Grid.Column="1" Background="WhiteSmoke">
+            <TextBlock Text="Détails de l'inscription" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="24"/>
+        </Grid>
+
+    </Grid>
 </UserControl>
