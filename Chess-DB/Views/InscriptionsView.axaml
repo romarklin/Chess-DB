@@ -5,26 +5,70 @@
                 mc:Ignorable="d"
                 x:Class="Chess_DB.Views.InscriptionsView"
                 x:DataType="vm:InscriptionsViewModel"
-                xmlns:vm="using:Chess_DB.ViewModels">
+                xmlns:vm="using:Chess_DB.ViewModels"
+                Background="white">
 
-    <Grid Background="LightGray" ColumnDefinitions="*,*">
+    <StackPanel Orientation="Vertical">
 
-        <Grid Grid.Column="0" Background="WhiteSmoke">
-            <ListBox ItemsSource="{Binding Joueurs}" Margin="20" CornerRadius="10">
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <StackPanel Orientation="Horizontal" Margin="5">
-                            <TextBlock Text="{Binding Nom}"/>
-                            <TextBlock Text="{Binding Prenom}"/>
-                        </StackPanel>
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-            </ListBox>
+        <Grid ColumnDefinitions="*, 10, *" Margin="20" Background="White">
+
+            <Grid Grid.Column="0" RowDefinitions="Auto, *">
+                <TextBlock Grid.Row="0" HorizontalAlignment="Center" Text="Joueurs Disponibles" FontWeight="Bold" Foreground="black" FontSize="18" Margin="0,0,0,10"/>
+
+                <ListBox Grid.Row="1" ItemsSource="{Binding JoueursDisponibles}" CornerRadius="10">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Grid ColumnDefinitions="*, Auto">
+                                <StackPanel Grid.Column="0" Orientation="Horizontal" Spacing="5" VerticalAlignment="Center">
+                                    <TextBlock Text="{Binding Nom}" FontWeight="Bold"/>
+                                    <TextBlock Text="{Binding Prenom}"/>
+                                    <TextBlock Text="{Binding ClassementElo, StringFormat='(Elo: {0})'}" FontStyle="Italic"/>
+                                </StackPanel>
+
+                                <Button Grid.Column="1" Content="→" 
+                                        Background="#34a853" Foreground="White"
+                                        ToolTip.Tip="Inscrire ce joueur"
+                                        Command="{Binding $parent[UserControl].DataContext.InscrireCommand}"
+                                        CommandParameter="{Binding}"/>
+                            </Grid>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </Grid>
+
+            <Grid Grid.Column="2" RowDefinitions="Auto, *">
+                <TextBlock Grid.Row="0" HorizontalAlignment="Center" Text="Joueurs Inscrits" FontWeight="Bold" Foreground="black" FontSize="18" Margin="0,0,0,10"/>
+
+                <ListBox Grid.Row="1" ItemsSource="{Binding JoueursInscrits}" CornerRadius="10">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Grid ColumnDefinitions="Auto, *">
+                                
+                                <Button Grid.Column="0" Content="←" 
+                                        Background="#ea4335" Foreground="White"
+                                        Margin="0,0,10,0"
+                                        ToolTip.Tip="Désinscrire ce joueur"
+                                        Command="{Binding $parent[UserControl].DataContext.DesinscrireCommand}"
+                                        CommandParameter="{Binding}"/>
+
+                                <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="5" VerticalAlignment="Center">
+                                    <TextBlock Text="{Binding Nom}" FontWeight="Bold"/>
+                                    <TextBlock Text="{Binding Prenom}"/>
+                                    <TextBlock Text="{Binding ClassementElo, StringFormat='(Elo: {0})'}" FontStyle="Italic" FontSize="12" VerticalAlignment="Center"/>
+                                </StackPanel>
+                                
+                            </Grid>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </Grid>
         </Grid>
 
-        <Grid Grid.Column="1" Background="WhiteSmoke">
-            <TextBlock Text="Détails de l'inscription" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="24"/>
-        </Grid>
-
-    </Grid>
+        <Button Content="Démarrer la compétition" 
+                HorizontalAlignment="Center" 
+                Padding="10,5"
+                Background="#4285f4" Foreground="White"
+                FontWeight="Bold"
+                FontSize="16"/>
+    </StackPanel>
 </UserControl>
