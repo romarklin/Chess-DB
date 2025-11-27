@@ -36,6 +36,7 @@
                                 
                                 <Button Content="Encoder" 
                                         Background="#fbbc04" Foreground="Black"
+                                        IsEnabled="{Binding PeutEncoder}"
                                         Command="{Binding $parent[UserControl].DataContext.EncoderResultatCommand}"
                                         CommandParameter="{Binding}"/>
                             </StackPanel>

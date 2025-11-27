@@ -25,18 +25,13 @@ public partial class MainWindowViewModel : ObservableObject
         _sharedCompetitionService = new CompetitionService();
 
         PagePrincipale = new PagePrincipaleViewModel(_joueurService);
-        /*PageInscriptions = new InscriptionsViewModel(_joueurService);
-        PageCompetitions = new CompetitionsViewModel();*/
-
+        PageCompetitions = new CompetitionsViewModel(_sharedCompetitionService);
         PageInscriptions = new InscriptionsViewModel(_joueurService, _sharedCompetitionService, () =>
         {
-            PageActuelle = PageCompetitions; // L'action qui change la page
+            PageActuelle = PageCompetitions;
         });
 
-        // MODIFICATION : On passe le service aux compétitions pour qu'il puisse lire la liste
-        PageCompetitions = new CompetitionsViewModel(_sharedCompetitionService);
-
-        _pageActuelle = PagePrincipale;
+        PageActuelle = PagePrincipale;
     }
 
     [RelayCommand]

@@ -1,7 +1,11 @@
 using Chess_DB.Models;
+using Chess_DB.Views;
 using Chess_DB.Services;
 using System.Collections.ObjectModel;
+using Avalonia.Controls.ApplicationLifetimes;
+using Avalonia;
 using CommunityToolkit.Mvvm.Input;
+using System.Threading.Tasks;
 
 namespace Chess_DB.ViewModels;
 
@@ -19,19 +23,19 @@ public partial class CompetitionsViewModel : ViewModelBase
         _competitionService = competitionService;
     }
 
-    // Constructeur par défaut (pour le design-time si besoin, optionnel)
-    public CompetitionsViewModel() { }
-
     [RelayCommand]
-    private void EncoderResultat(Partie partie)
+    private async Task EncoderResultat(Partie partie)
     {
-        // ICI : Logique pour ouvrir une fenêtre d'encodage.
-        // Pour l'instant, on simule un résultat aléatoire pour tester le bouton.
-        if (partie != null)
+        if (partie == null) return;
+
+        var fenetreEncodage = new EncoderResultatWindow(partie);
+
+        if (Application.Current?.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {
-            partie.Resultat = "1-0"; // Exemple statique
-            // Astuce pour rafraîchir l'affichage si la propriété n'est pas Observable
-            // Idéalement, la classe Partie devrait implémenter ObservableObject
+            if (desktop.MainWindow is not null)
+            {
+                await fenetreEncodage.ShowDialog(desktop.MainWindow);
+            }
         }
     }
 }

@@ -1,0 +1,56 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:Chess_DB.ViewModels"
+        xmlns:conv="using:Chess_DB.Converters"
+        x:Class="Chess_DB.Views.EncoderResultatWindow"
+        x:DataType="vm:EncoderResultatViewModel"
+        Title="Encoder le match"
+        Width="450" Height="500"
+        WindowStartupLocation="CenterOwner"
+        Foreground="Black"
+        Background="WhiteSmoke">
+
+    <Window.Resources>
+        <conv:IndexToBoolConverter x:Key="IndexToBoolConverter"/>
+    </Window.Resources>
+
+    <Grid RowDefinitions="Auto, Auto, *, Auto" Margin="20">
+        
+        <StackPanel Grid.Row="0" HorizontalAlignment="Center" Margin="0,0,0,20">
+            <TextBlock Text="{Binding PartieEnCours.JoueurBlanc.Nom}" FontWeight="Bold" FontSize="18" HorizontalAlignment="Center"/>
+            <TextBlock Text="VS" HorizontalAlignment="Center" Foreground="Gray"/>
+            <TextBlock Text="{Binding PartieEnCours.JoueurNoir.Nom}" FontWeight="Bold" FontSize="18" HorizontalAlignment="Center"/>
+        </StackPanel>
+
+        <Border Grid.Row="1" Background="#fbbc04" CornerRadius="10" Margin="0,0,0,20" Padding="10">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Spacing="20">
+                <RadioButton Content="Blancs (1-0)" 
+                             Foreground="Black"
+                             IsChecked="{Binding SelectedResultIndex, Mode=TwoWay, Converter={StaticResource IndexToBoolConverter}, ConverterParameter='0'}"/>
+                <RadioButton Content="Noirs (0-1)" 
+                             Foreground="Black"
+                             IsChecked="{Binding SelectedResultIndex, Mode=TwoWay, Converter={StaticResource IndexToBoolConverter}, ConverterParameter='1'}"/>
+                <RadioButton Content="Nul (1/2-1/2)" 
+                             Foreground="Black"
+                             IsChecked="{Binding SelectedResultIndex, Mode=TwoWay, Converter={StaticResource IndexToBoolConverter}, ConverterParameter='2'}"/>
+            </StackPanel>
+        </Border>
+
+        <TextBlock Grid.Row="2" Text="Liste des coups :" FontWeight="Bold" Margin="0,0,0,5" VerticalAlignment="Top"/>
+        <TextBox Grid.Row="2" 
+                 Text="{Binding TexteCoups}" 
+                 AcceptsReturn="True" 
+                 TextWrapping="Wrap"
+                 Margin="0,25,0,0"
+                 CornerRadius="10"
+                 Watermark="1. e4 e5 ..."/>
+
+        <Button Grid.Row="3" 
+                Content="VALIDER ET CALCULER ELO" 
+                Command="{Binding ValiderCommand}"
+                HorizontalAlignment="Stretch" 
+                HorizontalContentAlignment="Center"
+                Background="#34a853" Foreground="White" FontWeight="Bold"
+                Margin="0,20,0,0"/>
+    </Grid>
+</Window>
