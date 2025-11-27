@@ -15,8 +15,28 @@ public partial class CompetitionsViewModel : ViewModelBase
 
     public string Title { get; } = "Liste des matchs";
 
-    // Liaison directe vers la liste du service
     public ObservableCollection<Partie> Parties => _competitionService.Parties;
+
+    public string NomCompetition
+    {
+        get
+        {
+            // Retourne le nom de la compétition actuelle (ou un texte par défaut si null)
+            return _competitionService.CompetitionEnCours?.Nom ?? "Aucune compétition";
+        }
+        set
+        {
+            // Met à jour le nom dans le service si la compétition existe
+            if (_competitionService.CompetitionEnCours != null)
+            {
+                if (_competitionService.CompetitionEnCours.Nom != value)
+                {
+                    _competitionService.CompetitionEnCours.Nom = value;
+                    OnPropertyChanged(); // Notifie la vue que la valeur a changé
+                }
+            }
+        }
+    }
 
     public CompetitionsViewModel(CompetitionService competitionService)
     {
@@ -35,6 +55,8 @@ public partial class CompetitionsViewModel : ViewModelBase
             if (desktop.MainWindow is not null)
             {
                 await fenetreEncodage.ShowDialog(desktop.MainWindow);
+
+                _competitionService.Sauvegarder();
             }
         }
     }
