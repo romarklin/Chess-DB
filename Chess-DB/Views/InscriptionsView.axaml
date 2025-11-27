@@ -69,6 +69,7 @@
                 Padding="10,5"
                 Background="#4285f4" Foreground="White"
                 FontWeight="Bold"
-                FontSize="16"/>
+                FontSize="16"
+                Command ="{Binding DemarrerCompetitionCommand}"/>
     </StackPanel>
 </UserControl>
