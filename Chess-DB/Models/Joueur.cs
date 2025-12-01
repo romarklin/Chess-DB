@@ -3,12 +3,14 @@ using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace Chess_DB.Models;
 
-public class Joueur : ObservableObject
+public partial class Joueur : ObservableObject
 {
     public int Id { get; set; }
     public string Nom { get; set; } = string.Empty;
     public string Prenom { get; set; } = string.Empty;
-    public double ClassementElo { get; set; } = 1200;
+
+    [ObservableProperty]
+    private double classementElo = 1200;
 
     // Statistiques optionnelles
     public int PartiesJouees { get; set; }

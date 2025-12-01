@@ -1,0 +1,35 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:Chess_DB.ViewModels"
+             x:Class="Chess_DB.Views.HistoriqueView"
+             x:DataType="vm:HistoriqueViewModel"
+             Background="white">
+
+    <Grid RowDefinitions="Auto, *">
+        <TextBlock Grid.Row="0" Text="{Binding Title}" Foreground="Black" FontSize="20" FontWeight="Bold" Margin="10,10,0,20"/>
+
+        <ListBox Grid.Row="1" ItemsSource="{Binding Competitions}" Margin="10" Background="#e8e8e8" CornerRadius="10">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Border Background="White" CornerRadius="5" Padding="10" Margin="0,0,0,5" BoxShadow="0 1 3 0 #20000000">
+                        <Grid ColumnDefinitions="*, Auto, Auto"> <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                                <TextBlock Text="{Binding Nom}" FontWeight="Bold" FontSize="16" Foreground="#333333"/>
+                                <TextBlock Text="{Binding Parties.Count, StringFormat='{}{0} parties jouées'}" FontSize="12" Foreground="Gray" FontStyle="Italic"/>
+                            </StackPanel>
+
+                            <StackPanel Grid.Column="1" VerticalAlignment="Center" Orientation="Horizontal" Margin="0,0,20,0">
+                                <TextBlock Text="{Binding DateDebut, StringFormat='{}{0:dd/MM/yyyy}'}" FontWeight="SemiBold" Foreground="Gray"/>
+                            </StackPanel>
+
+                            <Button Grid.Column="2" Content="Voir →" 
+                                    Background="#4285f4" Foreground="White" FontWeight="Bold"
+                                    Command="{Binding $parent[UserControl].DataContext.VoirDetailsCommand}"
+                                    CommandParameter="{Binding}"/>
+                            
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+    </Grid>
+</UserControl>

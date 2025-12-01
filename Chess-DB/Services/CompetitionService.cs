@@ -182,19 +182,18 @@ public class CompetitionService
         string nom = parts.Length > 1 ? parts[1] : parts[0];
         return new Joueur { Prenom = prenom, Nom = nom };
     }
+}
 
-    private class CompetitionDto
-    {
-        public string Nom { get; set; } = "";
-        public DateTime Date { get; set; }
-        public List<PartieDto> Parties { get; set; } = new();
-    }
-
-    private class PartieDto
-    {
-        public string Blancs { get; set; } = "";
-        public string Noirs { get; set; } = "";
-        public string Resultat { get; set; } = "";
-        public List<string> Coups { get; set; } = new();
-    }
+public class CompetitionDto
+{
+    public string Nom { get; set; } = "";
+    public DateTime Date { get; set; }
+    public List<PartieDto> Parties { get; set; } = new();
+}
+public class PartieDto
+{
+    public string Blancs { get; set; } = "";
+    public string Noirs { get; set; } = "";
+    public string Resultat { get; set; } = "";
+    public List<string> Coups { get; set; } = new();
 }

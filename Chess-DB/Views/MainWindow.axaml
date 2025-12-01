@@ -5,7 +5,7 @@
         xmlns:view="using:Chess_DB.Views"
         x:Class="Chess_DB.Views.MainWindow"
         x:DataType="vm:MainWindowViewModel"
-        Title="Gestion des Joueurs" Width="500" Height="400">
+        Title="Gestion des Joueurs" Width="700" Height="600">
 
     <Grid RowDefinitions="Auto, Auto, *">
 

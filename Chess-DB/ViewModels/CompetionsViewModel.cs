@@ -1,6 +1,7 @@
 using Chess_DB.Models;
 using Chess_DB.Views;
 using Chess_DB.Services;
+using System;
 using System.Collections.ObjectModel;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia;
@@ -12,6 +13,7 @@ namespace Chess_DB.ViewModels;
 public partial class CompetitionsViewModel : ViewModelBase
 {
     private readonly CompetitionService _competitionService;
+    private readonly Action _allerVersHistorique;
 
     public string Title { get; } = "Liste des matchs";
 
@@ -38,9 +40,10 @@ public partial class CompetitionsViewModel : ViewModelBase
         }
     }
 
-    public CompetitionsViewModel(CompetitionService competitionService)
+    public CompetitionsViewModel(CompetitionService competitionService, Action allerVersHistorique)
     {
         _competitionService = competitionService;
+        _allerVersHistorique = allerVersHistorique;
     }
 
     [RelayCommand]
@@ -59,5 +62,15 @@ public partial class CompetitionsViewModel : ViewModelBase
                 _competitionService.Sauvegarder();
             }
         }
+    }
+
+    [RelayCommand]
+    private void TerminerEtVoirHistorique()
+    {
+        // 1. On force une dernière sauvegarde pour être sûr
+        _competitionService.Sauvegarder();
+
+        // 2. On déclenche la navigation vers l'historique
+        _allerVersHistorique?.Invoke();
     }
 }

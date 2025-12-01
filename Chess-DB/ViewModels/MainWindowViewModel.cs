@@ -19,13 +19,25 @@ public partial class MainWindowViewModel : ObservableObject
     public InscriptionsViewModel PageInscriptions { get; }
     public CompetitionsViewModel PageCompetitions { get; }
 
+    public HistoriqueViewModel PageHistorique { get; }
+
     public MainWindowViewModel()
     {
         _joueurService = new JoueurService();
         _sharedCompetitionService = new CompetitionService();
 
         PagePrincipale = new PagePrincipaleViewModel(_joueurService);
-        PageCompetitions = new CompetitionsViewModel(_sharedCompetitionService);
+        PageCompetitions = new CompetitionsViewModel(_sharedCompetitionService, () =>
+        {
+            PageActuelle = PageHistorique;
+        });
+        PageHistorique = new HistoriqueViewModel(_sharedCompetitionService, (competition) =>
+        {
+            PageActuelle = new DetailsCompetitionViewModel(competition, () =>
+            {
+                PageActuelle = PageHistorique;
+            });
+        });
         PageInscriptions = new InscriptionsViewModel(_joueurService, _sharedCompetitionService, () =>
         {
             PageActuelle = PageCompetitions;
@@ -49,6 +61,6 @@ public partial class MainWindowViewModel : ObservableObject
     [RelayCommand]
     private void AllerALaPageCompetitions()
     {
-        PageActuelle = PageCompetitions;
+        PageActuelle = PageHistorique;
     }
 }
