@@ -1,0 +1,62 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:Chess_DB.ViewModels"
+        x:Class="Chess_DB.Views.JoueurStatsWindow"
+        x:DataType="vm:JoueurStatsViewModel"
+        Title="Statistiques Joueur"
+        Width="350" Height="550"
+        WindowStartupLocation="CenterOwner"
+        RequestedThemeVariant="Light"
+        Background="White">
+
+    <Grid RowDefinitions="Auto, *, Auto" Margin="20">
+        
+        <StackPanel Grid.Row="0" HorizontalAlignment="Center" Margin="0,0,0,20">
+            <Ellipse Width="60" Height="60" Fill="#4285f4" Margin="0,0,0,10"/>
+            <TextBlock Text="{Binding Joueur.Prenom}" HorizontalAlignment="Center" FontSize="16"/>
+            <TextBlock Text="{Binding Joueur.Nom}" HorizontalAlignment="Center" FontWeight="Bold" FontSize="20"/>
+            <Border Background="#f0f0f0" CornerRadius="10" Padding="10,5" Margin="0,10,0,0" HorizontalAlignment="Center">
+                <TextBlock Text="{Binding Joueur.ClassementElo, StringFormat='ELO : {0}'}" FontWeight="Bold" Foreground="#333333"/>
+            </Border>
+        </StackPanel>
+
+        <Border Grid.Row="1" BorderBrush="#e0e0e0" BorderThickness="1" CornerRadius="8" Padding="15">
+            <StackPanel Spacing="15">
+                
+                <Grid ColumnDefinitions="*, Auto">
+                    <TextBlock Text="Parties jouées" Foreground="Gray"/>
+                    <TextBlock Grid.Column="1" Text="{Binding Joueur.PartiesJouees}" FontWeight="Bold"/>
+                </Grid>
+                <Separator Background="#f0f0f0" Height="1"/>
+
+                <Grid ColumnDefinitions="*, Auto">
+                    <TextBlock Text="Victoires" Foreground="Green"/>
+                    <TextBlock Grid.Column="1" Text="{Binding Joueur.Victoires}" FontWeight="Bold" Foreground="Green"/>
+                </Grid>
+                <Separator Background="#f0f0f0" Height="1"/>
+
+                <Grid ColumnDefinitions="*, Auto">
+                    <TextBlock Text="Défaites" Foreground="Red"/>
+                    <TextBlock Grid.Column="1" Text="{Binding Joueur.Defaites}" FontWeight="Bold" Foreground="Red"/>
+                </Grid>
+                <Separator Background="#f0f0f0" Height="1"/>
+
+                <Grid ColumnDefinitions="*, Auto">
+                    <TextBlock Text="Nuls" Foreground="Orange"/>
+                    <TextBlock Grid.Column="1" Text="{Binding Joueur.Nuls}" FontWeight="Bold" Foreground="Orange"/>
+                </Grid>
+                <Separator Background="#f0f0f0" Height="1"/>
+
+                <Grid ColumnDefinitions="*, Auto" Margin="0,10,0,0">
+                    <TextBlock Text="Taux de victoire" FontWeight="SemiBold"/>
+                    <TextBlock Grid.Column="1" Text="{Binding RatioGagne}" FontWeight="Bold"/>
+                </Grid>
+
+            </StackPanel>
+        </Border>
+
+        <Button Grid.Row="2" Content="Fermer" Command="{Binding FermerCommand}" 
+                HorizontalAlignment="Stretch" HorizontalContentAlignment="Center"
+                Margin="0,20,0,0"/>
+    </Grid>
+</Window>

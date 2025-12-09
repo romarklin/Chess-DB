@@ -78,4 +78,19 @@ public partial class PagePrincipaleViewModel : ViewModelBase
             _joueurService.Supprimer(joueurASupprimer); // Utilise le service pour la suppression
         }
     }
+    [RelayCommand]
+    private async Task VoirStats(Joueur joueur)
+    {
+        if (joueur == null) return;
+
+        var fenetre = new JoueurStatsWindow(joueur);
+
+        if (Application.Current?.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
+        {
+            if (desktop.MainWindow is not null)
+            {
+                await fenetre.ShowDialog(desktop.MainWindow);
+            }
+        }
+    }
 }

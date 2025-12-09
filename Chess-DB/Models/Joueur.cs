@@ -5,26 +5,36 @@ namespace Chess_DB.Models;
 
 public partial class Joueur : ObservableObject
 {
-    public int Id { get; set; }
-    public string Nom { get; set; } = string.Empty;
-    public string Prenom { get; set; } = string.Empty;
+    //public int Id { get; set; }
+
+    [ObservableProperty]
+    private string nom = string.Empty;
+
+    [ObservableProperty]
+    private string prenom = string.Empty;
 
     [ObservableProperty]
     private double classementElo = 1200;
 
-    // Statistiques optionnelles
-    public int PartiesJouees { get; set; }
-    public int Victoires { get; set; }
-    public int Defaites { get; set; }
-    public int Nuls { get; set; }
+    [ObservableProperty]
+    private int partiesJouees;
+
+    [ObservableProperty]
+    private int victoires;
+
+    [ObservableProperty]
+    private int defaites;
+
+    [ObservableProperty]
+    private int nuls;
 
     // Constructeur par défaut
     public Joueur() { }
 
     // Constructeur pratique pour initialiser rapidement un joueur
-    public Joueur(int id, string nom, string prenom, double classementElo = 1200)
+    public Joueur(string nom, string prenom, double classementElo = 1200)
     {
-        Id = id;
+        //Id = id;
         Nom = nom;
         Prenom = prenom;
         ClassementElo = classementElo;
