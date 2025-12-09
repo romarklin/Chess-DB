@@ -12,7 +12,7 @@
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <Border Background="White" CornerRadius="5" Padding="10" Margin="0,0,0,5" BoxShadow="0 1 3 0 #20000000">
-                        <Grid ColumnDefinitions="*, Auto, Auto"> <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                        <Grid ColumnDefinitions="*, Auto, Auto, Auto"> <StackPanel Grid.Column="0" VerticalAlignment="Center">
                                 <TextBlock Text="{Binding Nom}" FontWeight="Bold" FontSize="16" Foreground="#333333"/>
                                 <TextBlock Text="{Binding Parties.Count, StringFormat='{}{0} parties jouées'}" FontSize="12" Foreground="Gray" FontStyle="Italic"/>
                             </StackPanel>
@@ -23,7 +23,14 @@
 
                             <Button Grid.Column="2" Content="Voir →" 
                                     Background="#4285f4" Foreground="White" FontWeight="Bold"
+                                    Margin="0,0,10,0"
                                     Command="{Binding $parent[UserControl].DataContext.VoirDetailsCommand}"
+                                    CommandParameter="{Binding}"/>
+
+                            <Button Grid.Column="3" Content="X" 
+                                    Background="#ea4335" Foreground="White" FontWeight="Bold"
+                                    ToolTip.Tip="Supprimer cette compétition"
+                                    Command="{Binding $parent[UserControl].DataContext.SupprimerCommand}"
                                     CommandParameter="{Binding}"/>
                             
                         </Grid>

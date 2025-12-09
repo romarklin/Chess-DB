@@ -182,6 +182,15 @@ public class CompetitionService
         string nom = parts.Length > 1 ? parts[1] : parts[0];
         return new Joueur { Prenom = prenom, Nom = nom };
     }
+
+    public void SupprimerCompetition(Competition competition)
+    {
+        if (Competitions.Contains(competition))
+        {
+            Competitions.Remove(competition);
+            Sauvegarder();
+        }
+    }
 }
 
 public class CompetitionDto

@@ -30,4 +30,13 @@ public partial class HistoriqueViewModel : ViewModelBase
             _voirDetailsNavigation?.Invoke(competition);
         }
     }
+
+    [RelayCommand]
+    private void Supprimer(Competition competition)
+    {
+        if (competition != null)
+        {
+            _competitionService.SupprimerCompetition(competition);
+        }
+    }
 }
