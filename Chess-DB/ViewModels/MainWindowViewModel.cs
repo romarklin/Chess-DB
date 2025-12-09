@@ -5,62 +5,112 @@ using CommunityToolkit.Mvvm.Input;
 
 namespace Chess_DB.ViewModels;
 
-public partial class MainWindowViewModel : ObservableObject
+public partial class MainWindowViewModel : ViewModelBase
 {
-
-    private readonly JoueurService _joueurService;
-
-    private readonly CompetitionService _sharedCompetitionService;
-
     [ObservableProperty]
     private ViewModelBase _pageActuelle;
 
-    public PagePrincipaleViewModel PagePrincipale { get; }
-    public InscriptionsViewModel PageInscriptions { get; }
-    public CompetitionsViewModel PageCompetitions { get; }
+    private readonly PagePrincipaleViewModel _pagePrincipale;
+    private readonly InscriptionsViewModel _pageInscriptions;
+    private readonly CompetitionsViewModel _pageCompetitions;
+    private readonly HistoriqueViewModel _pageHistorique;
 
-    public HistoriqueViewModel PageHistorique { get; }
+    private readonly JoueurService _sharedJoueurService;
+    private readonly CompetitionService _sharedCompetitionService;
+
+    // NOUVEAU : Un indicateur pour savoir si un tournoi est actif
+    private bool _competitionEnCours = false;
 
     public MainWindowViewModel()
     {
-        _joueurService = new JoueurService();
+        _sharedJoueurService = new JoueurService();
         _sharedCompetitionService = new CompetitionService();
 
-        PagePrincipale = new PagePrincipaleViewModel(_joueurService);
-        PageCompetitions = new CompetitionsViewModel(_sharedCompetitionService, () =>
-        {
-            PageActuelle = PageHistorique;
-        });
-        PageHistorique = new HistoriqueViewModel(_sharedCompetitionService, (competition) =>
-        {
-            PageActuelle = new DetailsCompetitionViewModel(competition, () =>
-            {
-                PageActuelle = PageHistorique;
-            });
-        });
-        PageInscriptions = new InscriptionsViewModel(_joueurService, _sharedCompetitionService, () =>
-        {
-            PageActuelle = PageCompetitions;
-        });
+        _pagePrincipale = new PagePrincipaleViewModel(_sharedJoueurService);
 
-        PageActuelle = PagePrincipale;
+        // 1. Quand on démarre une compétition, on appelle 'AllerVersCompetitions'
+        _pageInscriptions = new InscriptionsViewModel(
+            _sharedJoueurService,
+            _sharedCompetitionService,
+            AllerVersCompetitions
+        );
+
+        // 2. Quand on termine une compétition, on appelle 'TerminerCompetition'
+        // (C'est ici qu'on change la logique par rapport à avant)
+        _pageCompetitions = new CompetitionsViewModel(
+            _sharedCompetitionService,
+            TerminerCompetition
+        );
+
+        _pageHistorique = new HistoriqueViewModel(
+            _sharedCompetitionService,
+            AllerVersDetails
+        );
+
+        _pageActuelle = _pagePrincipale;
     }
+
+    // --- Méthodes de navigation ---
+
+    private void AllerVersCompetitions()
+    {
+        // On marque le début du tournoi
+        _competitionEnCours = true;
+        PageActuelle = _pageCompetitions;
+    }
+
+    // NOUVELLE MÉTHODE : Appelée par le bouton "Terminer et voir l'historique"
+    private void TerminerCompetition()
+    {
+        // On marque la fin du tournoi
+        _competitionEnCours = false;
+        PageActuelle = _pageHistorique;
+    }
+
+    private void AllerVersHistorique()
+    {
+        // Navigation simple (utilisée par le bouton retour des détails)
+        PageActuelle = _pageHistorique;
+    }
+
+    private void AllerVersDetails(Competition competition)
+    {
+        PageActuelle = new DetailsCompetitionViewModel(competition, AllerVersHistorique);
+    }
+
+    // --- Commandes du menu ---
 
     [RelayCommand]
     private void AllerAlaPagePrincipale()
     {
-        PageActuelle = PagePrincipale;
+        PageActuelle = _pagePrincipale;
     }
 
+    // MODIFICATION ICI : C'est le bouton du menu "Inscription"
     [RelayCommand]
     private void AllerALaPageInscriptions()
     {
-        PageActuelle = PageInscriptions;
+        if (_competitionEnCours)
+        {
+            // Si une compétition est active, ce bouton sert de raccourci pour y revenir
+            PageActuelle = _pageCompetitions;
+        }
+        else
+        {
+            // Sinon, il mène normalement à la page d'inscription
+            PageActuelle = _pageInscriptions;
+        }
     }
 
     [RelayCommand]
     private void AllerALaPageCompetitions()
     {
-        PageActuelle = PageHistorique;
+        PageActuelle = _pageCompetitions;
+    }
+
+    [RelayCommand]
+    private void AllerALaPageHistorique()
+    {
+        PageActuelle = _pageHistorique;
     }
 }

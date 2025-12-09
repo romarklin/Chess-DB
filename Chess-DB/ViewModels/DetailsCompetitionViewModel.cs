@@ -1,9 +1,10 @@
 using Chess_DB.Models;
 using CommunityToolkit.Mvvm.Input;
 using System;
-using Avalonia; // Pour Application
+using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
-using Chess_DB.Views; // Pour AfficherCoupsWindow
+using Chess_DB.Views;
+using System.Threading.Tasks;
 
 namespace Chess_DB.ViewModels;
 
@@ -36,7 +37,7 @@ public partial class DetailsCompetitionViewModel : ViewModelBase
     }
 
     [RelayCommand]
-    private void AfficherCoups(Partie partie)
+    private async Task AfficherCoups(Partie partie)
     {
         if (partie == null) return;
 
@@ -44,9 +45,11 @@ public partial class DetailsCompetitionViewModel : ViewModelBase
 
         if (Application.Current?.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {
-            // On l'ouvre en mode Dialog (bloquant) ou Show (non bloquant), au choix.
-            // ShowDialog est souvent mieux pour une popup d'info.
-            fenetre.ShowDialog(desktop.MainWindow);
+
+            if (desktop.MainWindow is not null)
+            {
+                await fenetre.ShowDialog(desktop.MainWindow);
+            }
         }
     }
 }
