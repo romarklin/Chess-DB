@@ -5,6 +5,7 @@
         x:DataType="vm:AfficherCoupsViewModel"
         Title="Détails de la partie"
         Width="400" Height="500"
+        CanResize="False"
         WindowStartupLocation="CenterOwner"
         RequestedThemeVariant="Light"
         Background="White">

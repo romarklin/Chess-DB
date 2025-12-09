@@ -6,6 +6,7 @@
         Title="Statistiques Joueur"
         Width="350" Height="550"
         WindowStartupLocation="CenterOwner"
+        CanResize="False"
         RequestedThemeVariant="Light"
         Background="White">
 

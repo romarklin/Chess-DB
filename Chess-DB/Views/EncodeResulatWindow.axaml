@@ -6,8 +6,10 @@
         x:DataType="vm:EncoderResultatViewModel"
         Title="Encoder le match"
         Width="450" Height="500"
+        CanResize="False"
         WindowStartupLocation="CenterOwner"
         Foreground="Black"
+        RequestedThemeVariant="Light"
         Background="WhiteSmoke">
 
     <Window.Resources>
@@ -16,12 +18,14 @@
 
     <Grid RowDefinitions="Auto, Auto, *, Auto" Margin="20">
         
+        <!-- Affichage des joueurs -->
         <StackPanel Grid.Row="0" HorizontalAlignment="Center" Margin="0,0,0,20">
             <TextBlock Text="{Binding PartieEnCours.JoueurBlanc.Nom}" FontWeight="Bold" FontSize="18" HorizontalAlignment="Center"/>
             <TextBlock Text="VS" HorizontalAlignment="Center" Foreground="Gray"/>
             <TextBlock Text="{Binding PartieEnCours.JoueurNoir.Nom}" FontWeight="Bold" FontSize="18" HorizontalAlignment="Center"/>
         </StackPanel>
 
+        <!-- encodage du gagnant -->
         <Border Grid.Row="1" Background="#fbbc04" CornerRadius="10" Margin="0,0,0,20" Padding="10">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Spacing="20">
                 <RadioButton Content="Blancs (1-0)" 
@@ -68,7 +72,7 @@
                     <TextBox Text="{Binding InputCoupBlanc}" 
                              Watermark="ex: e4" 
                              CornerRadius="5"
-                             Background="White" Foreground="Black" CaretBrush="Black"/>
+                             />
                 </StackPanel>
 
                 <StackPanel Spacing="5">
@@ -76,7 +80,7 @@
                     <TextBox Text="{Binding InputCoupNoir}" 
                              Watermark="ex: e5" 
                              CornerRadius="5"
-                             Background="White" Foreground="Black" CaretBrush="Black"/>
+                             />
                 </StackPanel>
 
                 <Button Content="Ajouter le coup" 
@@ -91,6 +95,7 @@
             </StackPanel>
         </Grid>
 
+        <!-- Bouton valider et calculer ELO -->
         <Button Grid.Row="3" 
                 Content="VALIDER ET CALCULER ELO" 
                 Command="{Binding ValiderCommand}"
