@@ -51,3 +51,7 @@ Le principe de substitution de Liskov établit que les objets d'une classe de ba
 - Interchangeabilité : Lors de l'exécution, cette propriété reçoit indifféremment des instances de n'importe quel `ViewModel` enfant. Le moteur de l'application traite ces objets de manière transparente via la classe de base, garantissant que chaque page spécifique peut se substituer à une autre sans nécessiter de modification du code de gestion de la fenêtre principale.
 
 ## Une conclusion :
+
+Pour conclure, le projet Chess-DB a permis de développer une solution logicielle complète et robuste répondant aux besoins de gestion de compétitions d'échecs pour Google. Au-delà des fonctionnalités essentielles de gestion des matchs et des inscriptions, l'intégration du module de statistiques individuelles offre aux utilisateurs une vision analytique pertinente des performances des joueurs.
+
+D'un point de vue technique, l'architecture de l'application a été pensée pour durer. L'application rigoureuse des principes SOLID, notamment la Responsabilité Unique et la Substitution de Liskov, a permis de créer un code modulaire, maintenable et évolutif. Cette rigueur architecturale justifie pleinement la capacité d'adaptation du logiciel : en isolant les règles spécifiques aux échecs (comme le calcul ELO) du reste de la gestion administrative, nous avons posé les bases d'un outil polyvalent capable de s'ouvrir à d'autres fédérations ou types de jeux.
