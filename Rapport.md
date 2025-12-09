@@ -11,14 +11,43 @@ L’interface nous présente également le classment ELO du joueur.
 
 ## Diagramme de classes :
 
+![Diagramme de classes](/Chess-DB/Diagrammes/diagramme_classe.png)
+
 ## Diagramme de séquences :
 
+![Diagramme de séquences](/Chess-DB/Diagrammes/diagramme_sequence_encodage.png)
+
 ## Diagramme d’activité :
+
+![Diagramme d'activité](/Chess-DB/Diagrammes/diagramme_activite.png)
 
 ## Justification des qualités d’adaptabilité du projet à une autre fédération :
 
 Notre projet est adaptable a d’autres fédérations parce que, à part pour le calcul du score ELO et l’enregistrement des coups, les principales fonctionnalités, comme l’enregistrement des joueurs, l’inscription aux parties et leur historique sont assez générales et peuvent être utilisées pour d’autres jeux ou fédérations.
 
 ## Description (avec justifications) d’au moins deux principes SOLID utilisés dans le projet :
+
+Analyse de l'architecture logicielle et respect des principes SOLID
+L'architecture du projet Chess-DB a été conçue en suivant les bonnes pratiques de développement orienté objet, notamment par l'application de deux principes majeurs du paradigme SOLID : le Principe de Responsabilité Unique (SRP) et le Principe de Substitution de Liskov (LSP).
+
+**1. Principe de Responsabilité Unique (_Single Responsibility Principle - SRP_)**
+
+Ce principe stipule qu'une classe ne doit avoir qu'une seule raison de changer, ce qui implique qu'elle ne doit prendre en charge qu'une seule responsabilité fonctionnelle. Cette séparation des préoccupations est clairement établie dans le projet à travers plusieurs couches :
+
+- Gestion des données : Les services `JoueurService` et `CompetitionService` sont exclusivement dédiés à la gestion du cycle de vie des données (chargement, sauvegarde, ajout, suppression) pour leurs entités respectives. Ils sont totalement découplés de la logique d'affichage.
+
+- Logique métier pure : La classe `EloCalculator` isole la complexité mathématique liée au calcul et à l'ajustement du classement ELO. Elle n'interagit pas avec l'interface utilisateur ni avec le stockage des fichiers, se concentrant uniquement sur l'application des règles métier.
+
+- Logique de présentation : Les `ViewModels`, tels que `PagePrincipaleViewModel` ou `EncoderResultatViewModel`, se chargent uniquement de la préparation des données pour la vue et de la gestion des interactions utilisateur, sans empiéter sur la logique métier ou l'accès aux données.
+
+**2. Principe de Substitution de Liskov (_Liskov Substitution Principle - LSP_)**
+
+Le principe de substitution de Liskov établit que les objets d'une classe de base doivent pouvoir être remplacés par des objets de ses classes dérivées sans altérer la cohérence ou le fonctionnement du programme. Ce principe est le fondement du système de navigation de l'application :
+
+- Abstraction commune : Le projet définit une classe parente `ViewModelBase` dont héritent tous les contrôleurs de page spécifiques (`PagePrincipaleViewModel`, `InscriptionsViewModel`, `HistoriqueViewModel`, etc.).
+
+- Polymorphisme en action : Dans le `MainWindowViewModel`, la propriété responsable de l'affichage courant, `_pageActuelle`, est typée comme `ViewModelBase`.
+
+- Interchangeabilité : Lors de l'exécution, cette propriété reçoit indifféremment des instances de n'importe quel `ViewModel` enfant. Le moteur de l'application traite ces objets de manière transparente via la classe de base, garantissant que chaque page spécifique peut se substituer à une autre sans nécessiter de modification du code de gestion de la fenêtre principale.
 
 ## Une conclusion :
