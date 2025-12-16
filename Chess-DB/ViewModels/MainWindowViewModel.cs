@@ -18,7 +18,7 @@ public partial class MainWindowViewModel : ViewModelBase
     private readonly JoueurService _sharedJoueurService;
     private readonly CompetitionService _sharedCompetitionService;
 
-    // NOUVEAU : Un indicateur pour savoir si un tournoi est actif
+    // Un indicateur pour savoir si un tournoi est actif
     private bool _competitionEnCours = false;
 
     public MainWindowViewModel()
@@ -36,7 +36,6 @@ public partial class MainWindowViewModel : ViewModelBase
         );
 
         // 2. Quand on termine une compétition, on appelle 'TerminerCompetition'
-        // (C'est ici qu'on change la logique par rapport à avant)
         _pageCompetitions = new CompetitionsViewModel(
             _sharedCompetitionService,
             TerminerCompetition
@@ -59,7 +58,6 @@ public partial class MainWindowViewModel : ViewModelBase
         PageActuelle = _pageCompetitions;
     }
 
-    // NOUVELLE MÉTHODE : Appelée par le bouton "Terminer et voir l'historique"
     private void TerminerCompetition()
     {
         // On marque la fin du tournoi
@@ -86,7 +84,6 @@ public partial class MainWindowViewModel : ViewModelBase
         PageActuelle = _pagePrincipale;
     }
 
-    // MODIFICATION ICI : C'est le bouton du menu "Inscription"
     [RelayCommand]
     private void AllerALaPageInscriptions()
     {

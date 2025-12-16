@@ -7,6 +7,7 @@
 
     <Grid RowDefinitions="Auto, *">
         
+        <!-- Retour et Titre -->
         <Grid Grid.Row="0" ColumnDefinitions="Auto, *" Margin="10">
             <Button Grid.Column="0" Content="← Retour" Command="{Binding RetourCommand}"/>
             <TextBlock Grid.Column="1" Text="{Binding Title}" 
@@ -14,15 +15,18 @@
                        HorizontalAlignment="Center" VerticalAlignment="Center"/>
         </Grid>
 
+        <!-- Liste des parties -->
         <ListBox Grid.Row="1" ItemsSource="{Binding Competition.Parties}" Margin="10" Background="Transparent">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <Border Background="#e8e8e8" CornerRadius="5" Padding="10" BorderBrush="#e0e0e0" BorderThickness="1">
                         <ToolTip.Tip>
-                            <TextBlock Text="{Binding Coups}" Foreground="Black" />
+                            <TextBlock Text="{Binding Coups}"/>
                         </ToolTip.Tip>
                         
                         <Grid ColumnDefinitions="*, Auto, *, Auto, Auto">
+
+                            <!-- Informations sur les joueurs blancs -->
                             <StackPanel Grid.Column="0" HorizontalAlignment="Center">
                                 <TextBlock Text="Blancs" FontSize="10" Foreground="Gray" HorizontalAlignment="Center"/>
                                 <TextBlock Text="{Binding JoueurBlanc.Nom}" Foreground="Black" FontWeight="Bold" HorizontalAlignment="Center"/>
@@ -31,16 +35,19 @@
 
                             <TextBlock Grid.Column="1" Text="VS" FontWeight="Bold" Foreground="#cccccc" VerticalAlignment="Center" Margin="20,0"/>
 
+                            <!-- Informations sur les joueurs noirs -->
                             <StackPanel Grid.Column="2" HorizontalAlignment="Center">
                                 <TextBlock Text="Noirs" FontSize="10" Foreground="Gray" HorizontalAlignment="Center"/>
                                 <TextBlock Text="{Binding JoueurNoir.Nom}" Foreground="Black" FontWeight="Bold" HorizontalAlignment="Center"/>
                                 <TextBlock Text="{Binding JoueurNoir.Prenom}" Foreground="Black" HorizontalAlignment="Center"/>
                             </StackPanel>
 
+                            <!-- Affichage du résultat -->
                             <Border Grid.Column="3" Background="#4285f4" CornerRadius="5" Padding="10,5" Margin="20,0,0,0">
                                 <TextBlock Text="{Binding Resultat}" FontWeight="Bold" FontSize="16"/>
                             </Border>
 
+                            <!-- Bouton pour afficher la liste des coups -->
                             <Button Grid.Column="4" 
                                     Content="📜"
                                     ToolTip.Tip="Voir la liste des coups"

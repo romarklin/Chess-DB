@@ -9,6 +9,8 @@
                 Background="white">
 
     <Grid RowDefinitions="Auto, Auto, *, Auto">
+
+        <!-- Titre -->
         <TextBlock Grid.Row="0" Text="{Binding Title}" Foreground="Black" FontSize="20" FontWeight="Bold" Margin="10"/>
 
         <!-- Nom de la compétition -->
@@ -29,7 +31,8 @@
                 <DataTemplate>
                     <Border BorderBrush="#cccccc" BorderThickness="0,0,0,1" Padding="5">
                         <Grid ColumnDefinitions="*, Auto, *, Auto">
-                            
+
+                            <!-- Informations sur les joueurs blancs -->
                             <StackPanel Grid.Column="0" Orientation="Vertical" HorizontalAlignment="Center">
                                 <TextBlock Text="Blancs" FontSize="10" Foreground="Gray" HorizontalAlignment="Center"/>
                                 <TextBlock Text="{Binding JoueurBlanc.Nom}" FontWeight="Bold" HorizontalAlignment="Center"/>
@@ -38,12 +41,14 @@
 
                             <TextBlock Grid.Column="1" Text="VS" FontWeight="Bold" VerticalAlignment="Center" Margin="20,0"/>
 
+                            <!-- Informations sur les joueurs noirs -->
                             <StackPanel Grid.Column="2" Orientation="Vertical" HorizontalAlignment="Center">
                                 <TextBlock Text="Noirs" FontSize="10" Foreground="Gray" HorizontalAlignment="Center"/>
                                 <TextBlock Text="{Binding JoueurNoir.Nom}" FontWeight="Bold" HorizontalAlignment="Center"/>
                                 <TextBlock Text="{Binding JoueurNoir.Prenom}" HorizontalAlignment="Center"/>
                             </StackPanel>
 
+                            <!-- Affichage du résultat et bouton encoder -->
                             <StackPanel Grid.Column="3" Orientation="Horizontal" Margin="20,0,0,0" VerticalAlignment="Center">
                                 <TextBlock Text="{Binding Resultat}" FontWeight="Bold" FontSize="16" Margin="0,0,10,0"/>
                                 
@@ -60,6 +65,7 @@
             </ListBox.ItemTemplate>
         </ListBox>
 
+        <!-- Bouton terminer et voir historique -->
         <Button Grid.Row="3" 
                 Content="Terminer la compétition et voir l'Historique" 
                 Command="{Binding TerminerEtVoirHistoriqueCommand}"

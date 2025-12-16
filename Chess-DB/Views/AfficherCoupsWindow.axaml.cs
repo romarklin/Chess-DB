@@ -10,7 +10,7 @@ public partial class AfficherCoupsWindow : Window
     {
         InitializeComponent();
         var vm = new AfficherCoupsViewModel(partie);
-        vm.CloseAction = () => this.Close(); // Lien fermeture
+        vm.CloseAction = () => this.Close();
         DataContext = vm;
     }
 

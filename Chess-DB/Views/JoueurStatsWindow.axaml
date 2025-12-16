@@ -12,6 +12,7 @@
 
     <Grid RowDefinitions="Auto, *, Auto" Margin="20">
         
+        <!-- Informations sur le joueur -->
         <StackPanel Grid.Row="0" HorizontalAlignment="Center" Margin="0,0,0,20">
             <Ellipse Width="60" Height="60" Fill="#4285f4" Margin="0,0,0,10"/>
             <TextBlock Text="{Binding Joueur.Prenom}" HorizontalAlignment="Center" FontSize="16"/>
@@ -24,30 +25,35 @@
         <Border Grid.Row="1" BorderBrush="#e0e0e0" BorderThickness="1" CornerRadius="8" Padding="15">
             <StackPanel Spacing="15">
                 
+                <!-- Parties jouées -->
                 <Grid ColumnDefinitions="*, Auto">
                     <TextBlock Text="Parties jouées" Foreground="Gray"/>
                     <TextBlock Grid.Column="1" Text="{Binding Joueur.PartiesJouees}" FontWeight="Bold"/>
                 </Grid>
                 <Separator Background="#f0f0f0" Height="1"/>
 
+                <!-- Victoires -->
                 <Grid ColumnDefinitions="*, Auto">
                     <TextBlock Text="Victoires" Foreground="Green"/>
                     <TextBlock Grid.Column="1" Text="{Binding Joueur.Victoires}" FontWeight="Bold" Foreground="Green"/>
                 </Grid>
                 <Separator Background="#f0f0f0" Height="1"/>
 
+                <!-- Défaites -->
                 <Grid ColumnDefinitions="*, Auto">
                     <TextBlock Text="Défaites" Foreground="Red"/>
                     <TextBlock Grid.Column="1" Text="{Binding Joueur.Defaites}" FontWeight="Bold" Foreground="Red"/>
                 </Grid>
                 <Separator Background="#f0f0f0" Height="1"/>
 
+                <!-- Nuls -->
                 <Grid ColumnDefinitions="*, Auto">
                     <TextBlock Text="Nuls" Foreground="Orange"/>
                     <TextBlock Grid.Column="1" Text="{Binding Joueur.Nuls}" FontWeight="Bold" Foreground="Orange"/>
                 </Grid>
                 <Separator Background="#f0f0f0" Height="1"/>
 
+                <!-- Taux de victoire -->
                 <Grid ColumnDefinitions="*, Auto" Margin="0,10,0,0">
                     <TextBlock Text="Taux de victoire" FontWeight="SemiBold"/>
                     <TextBlock Grid.Column="1" Text="{Binding RatioGagne}" FontWeight="Bold"/>
@@ -56,6 +62,7 @@
             </StackPanel>
         </Border>
 
+        <!-- Bouton Fermer -->
         <Button Grid.Row="2" Content="Fermer" Command="{Binding FermerCommand}" 
                 HorizontalAlignment="Stretch" HorizontalContentAlignment="Center"
                 Margin="0,20,0,0"/>

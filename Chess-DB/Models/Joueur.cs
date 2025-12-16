@@ -5,7 +5,6 @@ namespace Chess_DB.Models;
 
 public partial class Joueur : ObservableObject
 {
-    //public int Id { get; set; }
 
     [ObservableProperty]
     private string nom = string.Empty;
@@ -34,7 +33,6 @@ public partial class Joueur : ObservableObject
     // Constructeur pratique pour initialiser rapidement un joueur
     public Joueur(string nom, string prenom, double classementElo = 1200)
     {
-        //Id = id;
         Nom = nom;
         Prenom = prenom;
         ClassementElo = classementElo;
@@ -47,7 +45,7 @@ public partial class Joueur : ObservableObject
         return (double)Victoires / PartiesJouees * 100;
     }
 
-    // Redéfinition de ToString() utile pour le debug ou les listes
+    // Redéfinition de ToString()
     public override string ToString()
     {
         return $"{Prenom} {Nom} (ELO: {ClassementElo})";

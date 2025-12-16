@@ -1,5 +1,5 @@
 using System;
-using System.Collections.Generic; // Pour List<T>
+using System.Collections.Generic;
 
 namespace Chess_DB.Models
 

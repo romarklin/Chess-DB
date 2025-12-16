@@ -75,7 +75,7 @@ public partial class PagePrincipaleViewModel : ViewModelBase
                 SelectedJoueur = null;
             }
 
-            _joueurService.Supprimer(joueurASupprimer); // Utilise le service pour la suppression
+            _joueurService.Supprimer(joueurASupprimer);
         }
     }
     [RelayCommand]

@@ -15,16 +15,19 @@
             <Grid Grid.Column="0" RowDefinitions="Auto, *">
                 <TextBlock Grid.Row="0" HorizontalAlignment="Center" Text="Joueurs Disponibles" FontWeight="Bold" Foreground="black" FontSize="18" Margin="0,0,0,10"/>
 
+                <!-- Liste des joueurs disponibles -->
                 <ListBox Grid.Row="1" ItemsSource="{Binding JoueursDisponibles}" CornerRadius="10">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <Grid ColumnDefinitions="*, Auto">
+                                <!-- Informations sur le joueur -->
                                 <StackPanel Grid.Column="0" Orientation="Horizontal" Spacing="5" VerticalAlignment="Center">
                                     <TextBlock Text="{Binding Nom}" FontWeight="Bold"/>
                                     <TextBlock Text="{Binding Prenom}"/>
                                     <TextBlock Text="{Binding ClassementElo, StringFormat='(Elo: {0})'}" FontStyle="Italic"/>
                                 </StackPanel>
 
+                                <!-- Bouton pour inscrire le joueur -->
                                 <Button Grid.Column="1" Content="→" 
                                         Background="#34a853" Foreground="White"
                                         ToolTip.Tip="Inscrire ce joueur"
@@ -36,6 +39,7 @@
                 </ListBox>
             </Grid>
 
+            <!-- Liste des joueurs inscrits -->
             <Grid Grid.Column="2" RowDefinitions="Auto, *">
                 <TextBlock Grid.Row="0" HorizontalAlignment="Center" Text="Joueurs Inscrits" FontWeight="Bold" Foreground="black" FontSize="18" Margin="0,0,0,10"/>
 
@@ -44,6 +48,7 @@
                         <DataTemplate>
                             <Grid ColumnDefinitions="Auto, *">
                                 
+                                <!-- Bouton pour désinscrire le joueur -->
                                 <Button Grid.Column="0" Content="←" 
                                         Background="#ea4335" Foreground="White"
                                         Margin="0,0,10,0"
@@ -51,6 +56,7 @@
                                         Command="{Binding $parent[UserControl].DataContext.DesinscrireCommand}"
                                         CommandParameter="{Binding}"/>
 
+                                <!-- Informations sur le joueur -->
                                 <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="5" VerticalAlignment="Center">
                                     <TextBlock Text="{Binding Nom}" FontWeight="Bold"/>
                                     <TextBlock Text="{Binding Prenom}"/>
@@ -64,6 +70,7 @@
             </Grid>
         </Grid>
 
+        <!-- Bouton pour démarrer la compétition -->
         <Button Content="Démarrer la compétition" 
                 HorizontalAlignment="Center" 
                 Padding="10,5"

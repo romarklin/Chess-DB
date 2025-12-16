@@ -9,12 +9,14 @@
 
     <StackPanel Margin="15" Spacing="10">
 
+        <!-- Nom et Prénom -->
         <TextBlock Text="Nom:"/>
         <TextBox Text="{Binding Nom}" />
 
         <TextBlock Text="Prénom:"/>
         <TextBox Text="{Binding Prenom}" />
 
+        <!-- Boutons de validation -->
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Spacing="10">
             <Button Content="Annuler" Command="{Binding AnnulerCommand}" />
             <Button Content="Confirmer" Command="{Binding ConfirmerCommand}" />

@@ -3,7 +3,6 @@ using System;
 
 namespace Chess_DB.Models;
 
-// Hérite maintenant de ObservableObject pour notifier l'interface des changements
 public partial class Partie : ObservableObject
 {
     public int Id { get; set; }

@@ -39,11 +39,13 @@
                     >
                 <ListBox.ItemTemplate>
                     <DataTemplate>
-                        <Grid ColumnDefinitions="*,*,*,Auto,Auto"> 
+                        <Grid ColumnDefinitions="*,*,*,Auto,Auto">
+                            <!-- Informations sur le joueur -->
                             <TextBlock Text="{Binding Nom}" Grid.Column="0" HorizontalAlignment="Center"/>
                             <TextBlock Text="{Binding Prenom}" Grid.Column="1" HorizontalAlignment="Center"/>
                             <TextBlock Text="{Binding ClassementElo}" Grid.Column="2" HorizontalAlignment="Center"/>
                             
+                            <!-- Bouton pour voir les statistiques du joueur -->
                             <Button Content="📊" 
                                     Grid.Column="3" 
                                     Margin="5,0"
@@ -55,6 +57,7 @@
                                     Command="{Binding $parent[UserControl].DataContext.VoirStatsCommand}"
                                     CommandParameter="{Binding}"/>
 
+                            <!-- Bouton pour supprimer le joueur -->
                             <Button Content="X" 
                                     Grid.Column="4" 
                                     Margin="5,0"
@@ -70,7 +73,7 @@
                 </ListBox.ItemTemplate>
             </ListBox>
 
-            <!-- Boutons Ajouter/Supprimer -->
+            <!-- Boutons ajouter un joueur -->
             <StackPanel Orientation="Horizontal" Spacing="10">
                 <Button Content="Ajouter" Command="{Binding AjouterJoueurCommand}"/>
             </StackPanel>
